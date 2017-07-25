@@ -21,12 +21,10 @@ echo "How old are you?"
 read ANSWER5
 
 # Write the datestamp to a variable 
-date --iso-8601=seconds
-read TIMESTAMP
+TIMESTAMP = `date --iso-8601=seconds`
 
 #Create unique identifier
-echo '$RANDOM-$RANDOM-$RANDOM' | sha256sum | sed 's/[\s\-]//g'
-read UID
+IDENTIFIER="`echo $RANDOM$RANDOM$RANDOM | sha1sum | sed 's/[^0-9a-fA-F]//g' | sed -e 's/^/0x/'`"
 
 #Write data to tmp.csv
 echo "$UID, $TIMESTAMP, $ANSWER1, $ANSWER2, $ANSWER3, $ANSWER4, $ANSWER5" >> ./temp.csv
